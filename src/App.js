@@ -49,10 +49,10 @@ function App() {
             </p>
             <div className="button-group">
               <Link to="/login" className="button primary">
-                Login
+                I ALREADY HAVE AN ACCOUNT
               </Link>
               <Link to="/signup" className="button secondary">
-                Sign Up
+                GET STARTED
               </Link>
             </div>
           </motion.div>

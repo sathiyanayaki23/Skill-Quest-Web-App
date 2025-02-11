@@ -19,7 +19,7 @@ const Login = () => {
 
     if (validUser) {
       alert("Welcome back, Captain!");
-      navigate("/dashboard");
+      navigate("/Dashboard");
     } else {
       setError("Arrr! Invalid login, matey!");
     }

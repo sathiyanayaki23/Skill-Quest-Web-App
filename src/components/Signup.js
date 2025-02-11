@@ -83,6 +83,16 @@ const Signup = () => {
           Set Sail!
         </motion.button>
       </form>
+
+      {/* Button to redirect to login page */}
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="login-redirect-btn"
+        onClick={() => navigate("/login")}
+      >
+        Already a Pirate? Log In! 🏴‍☠️
+      </motion.button>
     </motion.div>
   );
 };

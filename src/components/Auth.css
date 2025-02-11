@@ -1,0 +1,76 @@
+/* Pirate-Themed Auth.css */
+
+/* Background styling for the entire authentication page */
+.auth-container {
+    background: url('../assets/images/frontendimg.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Pirata One', cursive;
+}
+
+/* Styling for the form box */
+.auth-box {
+    background: url('../assets/images/wooden-texture.jpg') no-repeat center center/cover;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    width: 350px;
+    text-align: center;
+    border: 5px solid #c99c33;
+}
+
+/* Header styling */
+.auth-box h2 {
+    color: #c99c33;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Input fields styling */
+.auth-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #c99c33;
+    border-radius: 6px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Pirate-style button */
+.auth-box button {
+    width: 100%;
+    padding: 12px;
+    background: #c99c33;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.auth-box button:hover {
+    background: #a77b24;
+    transform: scale(1.05);
+}
+
+/* Link styling for switching between signup/login */
+.auth-box p {
+    margin-top: 15px;
+    color: #fff;
+}
+
+.auth-box a {
+    color: #ffd700;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.auth-box a:hover {
+    text-decoration: underline;
+}
