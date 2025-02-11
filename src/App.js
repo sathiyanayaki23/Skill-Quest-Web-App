@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import frontendImg from "./assets/images/frontendimg.jpg";
 import "./App.css";
 
 function App() {
@@ -57,13 +58,13 @@ function App() {
           </motion.div>
 
           <motion.div 
-            className="hero-image"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.5 }}
-          >
-            <img src="/images/frontendimg.jpg" alt="Web Development Illustration" />
-          </motion.div>
+  className="hero-image"
+  initial={{ opacity: 0, scale: 0.8 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 1.5 }}
+>
+  <img src={frontendImg} alt="Web Development Illustration" />
+</motion.div>
         </div>
       </main>
 
