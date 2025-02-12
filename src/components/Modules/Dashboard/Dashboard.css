@@ -1,0 +1,63 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Left Sidebar: Fixed */
+.sidebar {
+  width: 250px;
+  background: #222;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.sidebar ul {
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Middle Section: Scrollable */
+.middle-section {
+  flex: 1;
+  margin-left: 270px;
+  margin-right: 270px;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.levels-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.level-card {
+  width: 80%;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Right Sidebar: Fixed */
+.sidebar-right {
+  width: 250px;
+  background: #222;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  right: 0;
+  height: 100%;
+  overflow-y: auto;
+}

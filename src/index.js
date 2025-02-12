@@ -5,8 +5,10 @@ import App from './App';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import Dashboard from './components/Dashboard';
-import Assessment from './components/Assessment';
+import Dashboard from './components/Modules/Dashboard/Dashboard';
+import Assessment from './components/Modules/Assessment/Assessment';
+import Resources from './components/Modules/Resources/Resources';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -17,6 +19,7 @@ root.render(
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/assessment" element={<Assessment/>}/>
+        <Route path="/resources" element={<Resources/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

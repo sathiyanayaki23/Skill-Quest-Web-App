@@ -17,22 +17,32 @@ function App() {
       <div className="animated-bg"></div>
 
       <header className="app-header">
-        <motion.h1 
-          initial={{ opacity: 0, y: -50 }} 
-          animate={{ opacity: 1, y: 0 }} 
+        <motion.h1
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          SkillQuest
+          SkillQuest: Level Up
         </motion.h1>
 
-        <motion.p 
+        <motion.p
           className="tagline"
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
         >
           Embark on a Learning Adventure!
         </motion.p>
+
+        {/* XP Bar representing the learner's progress */}
+        <motion.div
+          className="xp-bar"
+          initial={{ opacity: 0, scaleX: 0 }}
+          animate={{ opacity: 1, scaleX: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+        >
+          <div className="xp-fill" style={{ width: "50%" }}></div>
+        </motion.div>
       </header>
 
       <main className="app-main">
@@ -43,9 +53,10 @@ function App() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2 }}
           >
-            <h2>Become a Web Wizard! </h2>
+            <h2>Level Up Your Web Skills!</h2>
             <p>
-              Master HTML, CSS, JavaScript & Bootstrap through interactive courses.
+              Master HTML, CSS, JavaScript & more as you unlock new levels and
+              achievements on your learning journey.
             </p>
             <div className="button-group">
               <Link to="/login" className="button primary">
@@ -57,14 +68,14 @@ function App() {
             </div>
           </motion.div>
 
-          <motion.div 
-  className="hero-image"
-  initial={{ opacity: 0, scale: 0.8 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ duration: 1.5 }}
->
-  <img src={frontendImg} alt="Web Development Illustration" />
-</motion.div>
+          <motion.div
+            className="hero-image"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5 }}
+          >
+            <img src={frontendImg} alt="Web Development Illustration" />
+          </motion.div>
         </div>
       </main>
 
