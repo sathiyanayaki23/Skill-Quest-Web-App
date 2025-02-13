@@ -1,0 +1,116 @@
+.app-header .app-logo { /* More specific: logo inside header */
+  max-width: 150px;
+  margin-left: 0;
+  padding: 1.5rem 1rem;
+  margin-top: 0.5rem;
+}
+.content-wrapper {  /* Make sure content-wrapper is flex column */
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.app-main {
+  flex: 1; /* Allow main to take up available space */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  padding: 2rem 0; /* Adjust padding as needed */
+}
+
+.hero-section { /* Remove or adjust align-items here */
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  /* align-items: center;  Remove or adjust as needed */
+}
+
+
+.hero-content {
+  flex: 1;
+  text-align: left;
+}
+
+.hero-content h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.4rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.button {
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button.primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.button.secondary {
+  background-color: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-image {
+  flex: 1; /* Keep flex so it takes up space */
+  text-align: center; /* Keep centering */
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  /* Remove ALL other styles */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .hero-content h2 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1.2rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+}
