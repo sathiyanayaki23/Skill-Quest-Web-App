@@ -1,171 +1,242 @@
-/* Assessment.css */
+/* OnboardingAssessment.css */
 
-/* General styles */
+/* General styles (body, container) */
 body, html {
   height: 100%;
   margin: 0;
-  font-family: 'Arial', sans-serif; /* Consistent font */
-  background-color: #f0f0f0; /* Light background */
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f0f0f0; /* Light background */
+  overflow: hidden; /* Prevent body scrolling */
 }
 
 .onboarding-container {
   width: 90%;
-  max-width: 800px;
-  margin: 2rem auto;
+  max-width: 600px;
+  margin: 0 auto;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #3498db; /* Blue text color */
+  box-shadow: 0px 5px 15px rgba(52, 152, 219, 0.7); /* Blue shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  height: auto; /* Allow content to determine height */
+  max-height: 95vh; /* Set a maximum height */
+  overflow-y: auto; /* Add vertical scroll if content overflows */
 }
 
-/* Progress bar */
-.progress-bar {
+.onboarding-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 10px 20px rgba(52, 152, 219, 0.8);
+}
+
+/* Assessment section */
+.assessment-section {
   width: 100%;
-  height: 10px;
-  background: #e0e0e0;
-  border-radius: 5px;
-  margin: 1rem 0;
-  overflow: hidden; /* Hide overflow for smooth transitions */
-}
-
-.progress-bar div {
-  height: 100%;
-  background: #3498db;
-  border-radius: 5px;
-  transition: width 0.5s ease; /* Smooth transition for progress */
-}
-
-/* Question section */
-.question {
   margin-bottom: 2rem;
 }
 
-.question h3 {
-  font-size: 1.5rem;
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0; /* Light gray background */
+  border-radius: 5px;
   margin-bottom: 1rem;
-  color: #333;
+  overflow: hidden; /* Hide overflow of the fill */
 }
 
-.question button {
-  display: block;
+.progress-bar-fill {
+  height: 100%;
+  width: 0; /* Initial width */
+  background-color: #3498db; /* Blue fill color */
+  border-radius: 5px;
+  transition: width 0.5s ease; /* Smooth transition */
+}
+
+.question {  /* Style the question container */
+  margin-bottom: 1rem;
+}
+
+.question h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   width: 100%;
+}
+
+.answer-option {
+  background: #3498db;
+  color: white;
   padding: 1rem;
-  margin: 0.5rem 0;
-  background: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.answer-option:hover {
+  background: #2980b9;
+  transform: scale(1.05);
+}
+
+.feedback {
+  margin-top: 1rem;
+  padding: 10px;
+  border-radius: 5px;
+  transition: opacity 0.3s ease;
+  opacity: 1; /* Initially visible, controlled by JS */
+}
+
+.feedback.correct {
+  background-color: #2ecc71; /* Green */
+  color: white;
+}
+
+.feedback.incorrect {
+  background-color: #e74c3c; /* Red */
+  color: white;
+}
+
+.next-button, .get-recommendation-button {
+  background: #3498db;
+  color: white;
+  padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
   font-size: 1rem;
-  color: #333;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1rem; /* Add margin top */
+  width: auto; /* Adjust width as needed */
 }
 
-.question button:hover {
+.next-button:hover, .get-recommendation-button:hover {
+  background: #2980b9;
+  transform: scale(1.05);
+}
+
+
+/* Recommendation section */
+.recommendation-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 100%; /* Take full width */
+}
+
+.recommendation-section p {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.set-goals-button {
   background: #3498db;
   color: white;
-  transform: scale(1.02); /* Slight scale effect on hover */
+  padding: 0.8rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.set-goals-button:hover {
+  background: #2980b9;
+  transform: scale(1.05);
 }
 
 /* Goals section */
 .goals-section {
-  margin-top: 2rem;
+  width: 100%;
 }
 
-.goals-section h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: #333;
+.goals-section p {
+    color: white;
+    margin-bottom: 1rem;
+    
 }
 
-.goals-section label {
+.goals-category {
+  border: 1px solid #3498db;
+  padding: 1rem;
+  border-radius: 10px;
+  width: calc(33.33% - 1rem); /* 3 columns with gap accounted for */
+  box-sizing: border-box;
+  text-align: left;
+  font-size: 0.9rem;
+  margin-bottom: 1rem; /* Space between categories vertically */
+}
+.goals-category-container { /* Container for all goal categories */
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: space-between; /* Distribute space evenly */
+  gap: 1rem; /* Consistent gap between categories */
+  margin-bottom: 0; 
+}
+.goals-category:last-child {
+    margin-right: 0; /* Remove right margin from the last element */
+}
+
+.goals-category h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.7rem;
+  color: #3498db;
+  text-align: center;
+}
+
+.goals-category label {
   display: block;
-  margin: 0.5rem 0;
-  font-size: 1rem;
-  color: #333;
+  margin-bottom: 0.5rem;
+  color: white;
+  font-size: 0.9rem;
+}
+.goals-category input[type="checkbox"] {
+  margin-right: 0.3rem;
+  transform: scale(1);
 }
 
-.goals-section input {
-  margin-right: 0.5rem;
-  cursor: pointer;
-}
-
-/* Buttons */
-button {
-  padding: 1rem 2rem;
+.start-learning-button {
   background: #3498db;
   color: white;
+  padding: 0.8rem 1.5rem;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
   font-size: 1rem;
-  margin: 0.5rem 0;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 1rem;
+  width: auto; /* Or 100% if you want full width */
 }
 
-button:hover {
+.start-learning-button:hover {
   background: #2980b9;
-  transform: scale(1.05); /* Slight scale effect on hover */
+  transform: scale(1.05);
 }
-
 /* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-  .onboarding-container {
-    padding: 1.5rem;
-    margin: 1rem auto;
-  }
-
-  .question h3 {
-    font-size: 1.3rem;
-  }
-
-  .question button {
-    padding: 0.8rem;
-    font-size: 0.9rem;
-  }
-
-  .goals-section h2 {
-    font-size: 1.5rem;
-  }
-
-  .goals-section label {
-    font-size: 0.9rem;
-  }
-
-  button {
-    padding: 0.8rem 1.5rem;
-    font-size: 0.9rem;
+@media (max-width: 768px) {  /* Tablet and smaller */
+  .goals-category {
+    width: calc(50% - 1rem); /* 2 columns */
   }
 }
 
-@media (max-width: 480px) {
-  .onboarding-container {
-    padding: 1rem;
-    margin: 0.5rem auto;
-  }
 
-  .question h3 {
-    font-size: 1.2rem;
-  }
-
-  .question button {
-    padding: 0.7rem;
-    font-size: 0.8rem;
-  }
-
-  .goals-section h2 {
-    font-size: 1.3rem;
-  }
-
-  .goals-section label {
-    font-size: 0.8rem;
-  }
-
-  button {
-    padding: 0.7rem 1.2rem;
-    font-size: 0.8rem;
+@media (max-width: 500px) { /* Mobile */
+  .goals-category {
+    width: 100%; /* 1 column */
   }
 }

@@ -1,7 +1,7 @@
 // OnboardingAssessment.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Assessment.css"; // Import CSS
+import "./Assessment.css";
 import { motion } from "framer-motion";
 
 const OnboardingAssessment = () => {
@@ -12,34 +12,63 @@ const OnboardingAssessment = () => {
   const [selectedGoals, setSelectedGoals] = useState([]);
   const [showRecommendation, setShowRecommendation] = useState(false);
   const [showGoals, setShowGoals] = useState(false);
+  const [feedback, setFeedback] = useState(null);
+  const [progress, setProgress] = useState(0);
 
-  // Sample Questions (Replace with real questions and adapt difficulty)
   const questions = [
     {
       question: "What does HTML stand for?",
       options: ["Hyper Text Markup Language", "High Tech Modern Language", "Home Tool Markup Language", "None of the above"],
       correctAnswer: "Hyper Text Markup Language",
+      difficulty: 1,
     },
     {
       question: "Which of these is NOT a CSS property?",
       options: ["color", "font-size", "background-color", "font-weight"],
-      correctAnswer: "font-weight", // Example - replace with a property that's not commonly used in basic CSS
+      correctAnswer: "font-weight",
+      difficulty: 2,
     },
-    // ... more questions
+    {
+      question: "What is the purpose of JavaScript?", // Example question
+      options: ["Styling web pages", "Adding interactivity to web pages", "Creating database connections", "Defining document structure"],
+      correctAnswer: "Adding interactivity to web pages",
+      difficulty: 2,
+    },
+    // ... more questions with difficulty
   ];
 
   const handleAnswer = (answer) => {
+    const isCorrect = answer === questions[currentQuestion].correctAnswer;
     setAnswers([...answers, answer]);
+    setFeedback(isCorrect ? "Correct!" : "Incorrect. Try again.");
+    setProgress((currentQuestion + 1) / questions.length * 100);
+
+    if (isCorrect) {
+      setTimeout(() => {
+        if (currentQuestion < questions.length - 1) {
+          setCurrentQuestion(currentQuestion + 1);
+          setFeedback(null);
+        } else {
+          handleRecommendation();
+        }
+      }, 500);
+    }
   };
 
   const calculateLevel = () => {
-    // Basic logic (improve with real scoring and adaptive difficulty)
-    const correctAnswers = answers.filter((answer, index) => answer === questions[index].correctAnswer).length;
-    const percentage = (correctAnswers / questions.length) * 100;
+    let score = 0;
+    questions.forEach((q, i) => {
+      if (answers[i] === q.correctAnswer) {
+        score += q.difficulty;
+      }
+    });
 
-    if (percentage < 30) {
+    const maxScore = questions.reduce((sum, q) => sum + q.difficulty, 0);
+    const percentage = (score / maxScore) * 100;
+
+    if (percentage < 40) {
       return "Beginner";
-    } else if (percentage < 70) {
+    } else if (percentage < 75) {
       return "Intermediate";
     } else {
       return "Advanced";
@@ -63,14 +92,28 @@ const OnboardingAssessment = () => {
   const handleStartLearning = () => {
     localStorage.setItem("selectedGoals", JSON.stringify(selectedGoals));
     localStorage.setItem("recommendedLevel", levelRecommendation);
-    localStorage.setItem("isLoggedIn", "true"); // Simulate login
-    navigate("/learningpath"); // Redirect to learning path
+    localStorage.setItem("isLoggedIn", "true");
+    navigate("/learningpath");
   };
 
-  const careerGoals = ["Get a front-end developer job", "Become a full-stack developer", "Build a portfolio", "Improve skills for career advancement"];
-  const projectGoals = ["Build a personal blog", "Create a landing page", "Develop a React app", "Contribute to open source"];
-  const skillGoals = ["Master HTML/CSS", "Become proficient in JavaScript", "Learn React.js", "Understand backend concepts"];
-
+  const careerGoals = [
+    "Get a front-end developer job",
+    "Become a full-stack developer",
+    "Build a portfolio",
+    "Improve skills for career advancement",
+  ];
+  const projectGoals = [
+    "Build a personal blog",
+    "Create a landing page",
+    "Develop a React app",
+    "Contribute to open source",
+  ];
+  const skillGoals = [
+    "Master HTML/CSS",
+    "Become proficient in JavaScript",
+    "Learn React.js",
+    "Understand backend concepts",
+  ];
   return (
     <motion.div
       className="onboarding-container"
@@ -78,60 +121,109 @@ const OnboardingAssessment = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
     >
+      {/* Assessment Section */}
       {!showRecommendation && (
         <div className="assessment-section">
-          <h2>Skills Assessment</h2>
-          <p>Answer the following questions to determine your skill level.</p>
-          <div className="question">
-            <h3>{questions[currentQuestion].question}</h3>
-            {questions[currentQuestion].options.map((option, index) => (
-              <button key={index} onClick={() => handleAnswer(option)}>
-                {option}
-              </button>
-            ))}
+          <h2>Skills Assessment</h2> {/* Heading */}
+          <div className="progress-bar"> {/* Progress Bar */}
+            <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
           </div>
-          {currentQuestion < questions.length - 1 ? (
-            <button onClick={() => setCurrentQuestion(currentQuestion + 1)}>Next Question</button>
-          ) : (
-            <button onClick={handleRecommendation}>Get Recommendation</button>
+          <div className="question"> {/* Question */}
+            <h3>{questions[currentQuestion].question}</h3>
+            <div className="options-container"> {/* Options */}
+              {questions[currentQuestion].options.map((option, index) => (
+                <button
+                  key={index}
+                  className="answer-option"
+                  onClick={() => handleAnswer(option)}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </div>
+          {feedback && ( // Feedback
+            <p className={`feedback ${feedback === "Correct!" ? "correct" : "incorrect"}`}>
+              {feedback}
+            </p>
+          )}
+          {/* Navigation Buttons */}
+          {currentQuestion < questions.length - 1 && !feedback && (
+            <button className="next-button" onClick={() => setCurrentQuestion(currentQuestion + 1)}>
+              Next Question
+            </button>
+          )}
+          {currentQuestion === questions.length - 1 && !feedback && (
+            <button className="get-recommendation-button" onClick={handleRecommendation}>
+              Get Recommendation
+            </button>
           )}
         </div>
       )}
 
+      {/* Recommendation Section */}
       {showRecommendation && !showGoals && (
         <div className="recommendation-section">
           <h2>Level Recommendation</h2>
-          <p>Based on your assessment, we recommend you start at the <strong>{levelRecommendation}</strong> level.</p>
-          <button onClick={() => setShowGoals(true)}>Set Learning Goals</button>
+          <p>
+            Based on your assessment, we recommend you start at the{" "}
+            <strong>{levelRecommendation}</strong> level.
+          </p>
+          <button className="set-goals-button" onClick={() => setShowGoals(true)}>
+            Set Learning Goals
+          </button>
         </div>
       )}
 
+      {/* Goals Section */}
       {showGoals && (
         <div className="goals-section">
           <h2>Learning Goals</h2>
           <p>Select your learning goals to personalize your learning path.</p>
-          <h3>Career Focused</h3>
-          {careerGoals.map((goal) => (
-            <label key={goal}>
-              <input type="checkbox" checked={selectedGoals.includes(goal)} onChange={() => handleGoalSelection(goal)} />
-              {goal}
-            </label>
-          ))}
-          <h3>Project Focused</h3>
-          {projectGoals.map((goal) => (
-            <label key={goal}>
-              <input type="checkbox" checked={selectedGoals.includes(goal)} onChange={() => handleGoalSelection(goal)} />
-              {goal}
-            </label>
-          ))}
-          <h3>Skill Focused</h3>
-          {skillGoals.map((goal) => (
-            <label key={goal}>
-              <input type="checkbox" checked={selectedGoals.includes(goal)} onChange={() => handleGoalSelection(goal)} />
-              {goal}
-            </label>
-          ))}
-          <button onClick={handleStartLearning}>Start Learning</button>
+          <div className="goals-category-container"> {/* Container for categories */}
+            <div className="goals-category"> {/* Career Goals */}
+              <h3>Career Focused</h3>
+              {careerGoals.map((goal) => (
+                <label key={goal}>
+                  <input
+                    type="checkbox"
+                    checked={selectedGoals.includes(goal)}
+                    onChange={() => handleGoalSelection(goal)}
+                  />
+                  {goal}
+                </label>
+              ))}
+            </div>
+            <div className="goals-category"> {/* Project Goals */}
+              <h3>Project Focused</h3>
+              {projectGoals.map((goal) => (
+                <label key={goal}>
+                  <input
+                    type="checkbox"
+                    checked={selectedGoals.includes(goal)}
+                    onChange={() => handleGoalSelection(goal)}
+                  />
+                  {goal}
+                </label>
+              ))}
+            </div>
+            <div className="goals-category"> {/* Skill Goals */}
+              <h3>Skill Focused</h3>
+              {skillGoals.map((goal) => (
+                <label key={goal}>
+                  <input
+                    type="checkbox"
+                    checked={selectedGoals.includes(goal)}
+                    onChange={() => handleGoalSelection(goal)}
+                  />
+                  {goal}
+                </label>
+              ))}
+            </div>
+          </div>
+          <button className="start-learning-button" onClick={handleStartLearning}>
+            Start Learning
+          </button>
         </div>
       )}
     </motion.div>
